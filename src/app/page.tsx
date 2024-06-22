@@ -3,6 +3,7 @@ export default function Home() {
     <div>
       <h1>Welcome to my app!</h1>
       <p>This is a Next.js app that uses the OpenAI API to generate text.</p>
+      <p>asdas</p>
     </div>
   );
 }
