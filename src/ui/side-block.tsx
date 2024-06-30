@@ -22,7 +22,7 @@ export default function SideBlock() {
         transition={{ duration: 0.5 }}
         >
             <div className='bg-blue-900 w-full'>
-                <button radius="md" className="bg-transparent" 
+                <button className="bg-transparent" 
                 onClick={hideSideBlock}>
                     <CloseLargeLine />
                 </button>
