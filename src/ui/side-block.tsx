@@ -85,8 +85,8 @@ export default function SideBlock() {
                 <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
             </div>
             <div className='bg-blue-900 w-full h-3/4 flex flex-col my-5'>
-                <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hellasdas</label>
-                <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hell</label>
+                <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
+                <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
             </div>
         </motion.div>
     )
