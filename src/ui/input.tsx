@@ -49,11 +49,9 @@ export default function Input() {
         const addAnswerArea = document.getElementById(ID); //获取组件
         //流式获取结果，进行markdown解析结果（增量更新，提高性能）
         let result = ''
-        let lastData = ''
+
         eventSource.onmessage = function (event) {
             const data = event.data;
-            lastData = data
-            if ((lastData === '#' || lastData === '##' )data != '#')
             result = result + data // 更新状态以显示接收到的数据
             addAnswerArea.innerHTML = marked.parse(result)
         };
