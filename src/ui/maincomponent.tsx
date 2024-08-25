@@ -8,10 +8,14 @@ import EditIcon from '@/icon/edit';
 
 //store
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleVisibility } from '../redux-store/store'; // 导入 toggleVisibility action
+import { toggleVisibility, toggleVisibility_minMenu } from '../redux-store/store'; // 导入 toggleVisibility action
+
+//handleResize
+import handleResize from '../functions/handleresize'
 
 export default function MainComponent() {
     const isVisible = useSelector(state => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
+    const isVisible_minMenu = useSelector(state => state.isVisible_minMenu);
     const dispatch = useDispatch(); // 获取 dispatch 函数，用于派发 action
 
     // 切换 isVisible 状态的函数
@@ -19,33 +23,45 @@ export default function MainComponent() {
         dispatch(toggleVisibility()); // 派发 toggleVisibility action
     };
 
+    function showSideBlock_minMenu() {
+        dispatch(toggleVisibility_minMenu());
+    };
+
+    function showAllSideBlock() {
+        const clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
+        //显示屏幕大于750px的菜单栏
+        if (clientWidth>750) {
+            showSideBlock()
+        }else {//显示屏幕小于750px的菜单栏
+            showSideBlock_minMenu()
+            window.addEventListener('resize',(event)=> {
+                handleResize(dispatch)
+            })
+        }
+    }
+
     return (
         //maincomponent
-        <motion.div className="h-screen flex flex-col items-center"
-        style={{transformOrigin:"right"}}
-        initial={false}
-        animate={{ width:isVisible ? "80%" : "100%" }}
-        transition={{duration:0.5}}
+        <div
+            id={isVisible ? 'maincomponent' : 'normalMaincomponent'}
+            className="h-screen flex flex-col items-center"
         >
 
             {/* top*/}
             <div className="bg-blue-500 w-full h-14 flex flex-row justify-between">
                 <div className="bg-transparent h-full flex items-center">
-                    <motion.div className="h-full flex items-center"
-                    style={{transformOrigin:"right"}}
-                    initial={false}
-                    animate={{ width: isVisible ? "0%" : "36%", opacity: isVisible ? 0 : 1 }}
-                    transition={{duration:0.5}}
+                    <div className="h-full flex items-center"
+                        id={isVisible ? 'showMenuIcon' : 'normalMenuIcon'}
                     >
-                        <button className="bg-transparent m-2" 
-                        onClick={showSideBlock}
+                        <button className="bg-transparent m-2"
+                            onClick={showAllSideBlock}
                         >
                             <MenuIcon />
                         </button>
                         <button className="bg-transparent m-2" >
                             <EditIcon />
                         </button>
-                    </motion.div>
+                    </div>
                     <span className="text-2xl ml-5"> My Chat</span>
                     <ArrowDownSLine />
                 </div>
@@ -53,27 +69,27 @@ export default function MainComponent() {
             </div>
 
             {/* middle */}
-            <div className="bg-yellow-300 w-full flex-1 flex justify-center">
-                <motion.div 
-                id="communicationArea"
-                className="bg-blue-800 h-full"
-                style={{transformOrigin:"right"}}
-                initial={false}
-                animate={{ width:isVisible ? "75%" : "59.5%" }}
-                transition={{duration:0.5}}
-                ></motion.div>
+            {/* 用于显示上传的问题及回答的答案 */}
+            {/* flex-auto的作用是可以填满剩余的部分（在y轴方向上），
+            正常情况下是填充x轴剩余部分，由于父组件设置为flex-col，所以改变收缩方向 */}
+            <div
+                style={{height: 'calc(100vh - 136px)'}} 
+                className="bg-yellow-300 w-full overflow-y-auto flex-auto flex justify-center"
+            >
+                <div
+                    id="communicationArea"
+                    className="bg-blue-800 mx-5 w-[750px]"
+                ></div>
             </div>
 
             {/* bottom */}
-            <motion.div className="bg-blue-700 flex flex-col items-center"
-            style={{transformOrigin:"right"}}
-            initial={false}
-            animate={{ width:isVisible ? "100%" : "79.5%" }}
-            transition={{duration:0.5}}
-            >
-                <Input />
-                <label className="bg-transparent opacity-25 w-fit py-0.5">Welcome to use</label>
-            </motion.div>
-        </motion.div>  
+            <div className="w-full flex flex-wrap">
+                {/* 在Input中使用w-full和flex来满足收缩 */}
+                <div className="bg-transparent w-full flex justify-center">{/* 居中Input组件 */}
+                    <Input />
+                </div>
+                <span className="bg-transparent w-full text-center py-0.5">Welcome to use my Chat</span>
+            </div>
+        </div>
     )
 }

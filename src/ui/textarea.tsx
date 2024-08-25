@@ -48,14 +48,16 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => 
     }
 
     return (
-        <textarea
-            ref={myRef}
-            style={{ resize: 'none', outline: 'none', whiteSpace: 'pre-wrap' }}
-            className="bg-transparent py-1 h-8 w-full my-1.5 mx-1"
-            placeholder="Type your message here..."
-            onChange={heightChange}
-        >
-        </textarea>
+        <div className='bg-transparent w-full flex'>
+            <textarea
+                ref={myRef}
+                style={{ resize: 'none', outline: 'none', whiteSpace: 'pre-wrap' }}
+                className="bg-transparent w-full py-1 h-8 my-2.5 mx-1"
+                placeholder="Type your message here..."
+                onChange={heightChange}
+            >
+            </textarea>
+        </div>
     )
 });
 

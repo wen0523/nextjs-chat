@@ -1,3 +1,129 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*恢复一些tailwindCSS样式覆盖的一些原生标签的样式*/
+h1 {
+    font-size: 2em;     /* 通常是默认的文本大小的2倍 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 0.67em 0;   /* 上下外边距 */
+}
+
+h2 {
+    font-size: 1.5em;   /* 通常是默认的文本大小的1.5倍 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 0.83em 0;   /* 上下外边距 */
+}
+
+h3 {
+    font-size: 1.17em;  /* 通常是默认的文本大小的1.17倍 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 1em 0;      /* 上下外边距 */
+}
+
+h4 {
+    font-size: 1em;     /* 与默认的文本大小一致 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 1.33em 0;   /* 上下外边距 */
+}
+
+h5 {
+    font-size: 0.83em;  /* 通常是默认的文本大小的0.83倍 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 1.67em 0;   /* 上下外边距 */
+}
+
+h6 {
+    font-size: 0.67em;  /* 通常是默认的文本大小的0.67倍 */
+    font-weight: bold;  /* 默认粗体 */
+    margin: 2.33em 0;   /* 上下外边距 */
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+/* 
+下面的样式是关于菜单栏的 
+*/
+
+/*过渡效果*/
+#side-block,
+#normalSide-block,
+#showMenuIcon {
+    transition: width 0.5s ease;
+}
+
+#maincomponent,
+#normalMaincomponent {
+    transition: width 0.5s ease;
+}
+
+/*屏幕小于750px时*/
+@media (max-width:750px) {
+    #side-block {
+        width: 0%;
+    }
+
+    #secondSide-Block {
+        visibility: visible;
+    }
+
+    /* 当屏幕小于750px时显示的菜单,*/
+    #no {
+        visibility: hidden;
+    }
+
+    #yes {
+        visibility: visible;
+    }
+
+    #maincomponent {
+        width: 100%;
+    }
+
+    #showMenuIcon {
+        width: 36%;
+        visibility: visible;
+    }
+}
+
+/*屏幕大于751px时*/
+@media (min-width:751px) {
+    #side-block {
+        width: 300px;
+    }
+
+    #secondSide-Block {
+        visibility: hidden;
+    }
+
+    #yes,#no {
+        visibility: hidden;
+    }
+
+    #maincomponent {
+        width: calc(100% - 300px);
+    }
+
+    #showMenuIcon {
+        width: 0%;
+        visibility: hidden;
+    }
+}
+
+/*normal*/
+/*当屏幕大于750px时点击菜单栏收起的按钮应用该样式，但与屏幕小于750px时的样式一样*/
+
+#normalSide-block {
+    width: 0%;
+}
+
+#normalMaincomponent {
+    width: 100%;
+}
+
+#normalMenuIcon {
+    width: 36%;
+    visibility: visible;
+}

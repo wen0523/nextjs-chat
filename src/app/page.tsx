@@ -11,7 +11,7 @@ import store from '../redux-store/store'; // 导入上面创建的 Redux store
 export default function Page() {
   return (
     <Provider store={store}>
-        <div className="flex flex-row">
+        <div className="flex">{/*设置为flex使子元素可以收缩*/}
             <SideBlock />
             <MainComponent />
         </div>
