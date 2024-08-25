@@ -61,4 +61,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => 
     )
 });
 
+// 设置 displayName 来避免 ESLint 错误
+Textarea.displayName = "Textarea";
+
 export default Textarea;
