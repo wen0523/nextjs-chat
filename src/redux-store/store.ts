@@ -12,6 +12,17 @@ const initialState = {
 const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 const TOGGLE_VISIBILITY_MINMENU = 'TOGGLE_VISIBILITY_MINMENU';
 
+// Action 类型定义(部署需要)
+interface ToggleVisibilityAction {
+  type: typeof TOGGLE_VISIBILITY;
+}
+
+interface ToggleVisibilityMinMenuAction {
+  type: typeof TOGGLE_VISIBILITY_MINMENU;
+}
+
+type Action = ToggleVisibilityAction | ToggleVisibilityMinMenuAction;
+
 // Action Creator
 export const toggleVisibility = () => ({
     type: TOGGLE_VISIBILITY,
@@ -22,7 +33,7 @@ export const toggleVisibility_minMenu = () =>({
   });
 
 // Reducer 函数
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case TOGGLE_VISIBILITY:
       return {
