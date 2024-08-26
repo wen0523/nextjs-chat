@@ -13,17 +13,17 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => 
     // useImperativeHandle 用来定义对外暴露的接口
     useImperativeHandle(ref, () => ({
         // 定义 get 方法，外部可以通过 ref.current.value 获取 <textarea> 的值
-        get value() {
+        get getValue() {
             return myRef.current?.value || "";
         },
         // 定义 set 方法，外部可以通过 ref.current.value = newValue 来设置 <textarea> 的值
-        set value(val: string) {
+        set setValue(val: string) {
             if (myRef.current) {
                 myRef.current.value = val;
             }
         },
         //提交问题后重新设置高度
-        set height(val: number) {
+        set setHeight(val: number) {
             if (myRef.current) {
                 myRef.current.style.height = val + 'px';
             }

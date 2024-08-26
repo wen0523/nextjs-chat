@@ -26,10 +26,10 @@ export default function Input() {
     }, [])//空数组挂载时执行一次
 
     async function PushManager() {
-        if (myTextArea.current) {
-            const context = myTextArea.current.value
-            myTextArea.current.height = 32
-            myTextArea.current.value = ''
+        if (myTextArea.current) {//在Textarea中自定义的
+            const context = myTextArea.current.getValue
+            myTextArea.current.setHeight = 32
+            myTextArea.current.setValue = ''
 
             //ID
             const ID = generateRandomId()
