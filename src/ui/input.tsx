@@ -21,7 +21,7 @@ export default function Input() {
         setEventSource(eventSource)
 
         //获取文本区域对象
-        setTheTextArea(document.getElementById('theTextArea'))
+        setTheTextArea(document.getElementById('theTextArea') as HTMLTextAreaElement)
 
         return () => {
             eventSource.close()//关闭连接
