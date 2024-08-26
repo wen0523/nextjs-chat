@@ -5,6 +5,9 @@ import { useRef, useImperativeHandle,forwardRef } from "react";
 // 定义 TextareaProps 接口，描述组件接受的属性
 interface TextareaProps {
     onChange?: () => void; // 可选的 onChange 回调函数
+    getValue: () => void;
+    setValue: (val: string) => void;
+    setHeight: (val: number) => void;
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => {
