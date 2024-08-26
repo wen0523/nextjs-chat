@@ -11,14 +11,17 @@ import Textarea from './textarea'
 import markdownParse from '@/functions/markdownParse.ts';
 
 export default function Input() {
-    const myTextArea = useRef<TextareaHandle>(null)
     const marked = markdownParse()
     const [eventSource, setEventSource] = useState<EventSource | null>(null)
+    const [theTextArea, setTheTextArea] = useState<HTMLTextAreaElement | null>(null)
 
     //eventSource是一个浏览器 API,保证在客户端运行
     useEffect(() => {
         const eventSource = new EventSource('http://127.0.0.1:5000/stream');//建立连接（一直保持）
         setEventSource(eventSource)
+
+        //获取文本区域对象
+        setTheTextArea(document.getElementById('theTextArea'))
 
         return () => {
             eventSource.close()//关闭连接
@@ -26,10 +29,10 @@ export default function Input() {
     }, [])//空数组挂载时执行一次
 
     async function PushManager() {
-        if (myTextArea.current) {//在Textarea中自定义的
-            const context = myTextArea.current.getValue
-            myTextArea.current.setHeight = 32
-            myTextArea.current.setValue = ''
+        if (theTextArea) {//在Textarea中自定义的
+            const context = theTextArea.value
+            theTextArea.style.height = '32px'
+            theTextArea.style.value = ''
 
             //ID
             const ID = generateRandomId()
@@ -123,7 +126,7 @@ export default function Input() {
             </div>
 
             {/* 文本区域 */}
-            <Textarea ref={myTextArea} />
+            <Textarea />
 
             {/* button two */}
             <div className='bg-transparent h-full pb-1 rounded-l-[30px] flex items-end'>

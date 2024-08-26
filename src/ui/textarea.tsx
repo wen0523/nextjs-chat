@@ -1,42 +1,9 @@
 'use client'
 
-import { useRef, useImperativeHandle,forwardRef } from "react";
+import { useRef } from "react";
 
-// 定义 TextareaProps 接口，描述组件接受的属性
-interface TextareaProps {
-    onChange?: () => void; // 可选的 onChange 回调函数
-}
-
-// 定义对外暴露的 ref 类型接口
-interface TextareaHandle {
-    getValue: () => string;
-    setValue: (val: string) => void;
-    setHeight: (val: number) => void;
-}
-
-const Textarea = forwardRef<TextareaHandle, TextareaProps>((props, ref) => {
+export default function Textarea() {
     const myRef = useRef<HTMLTextAreaElement>(null)
-
-    // useImperativeHandle 用来定义对外暴露的接口
-    useImperativeHandle(ref, () => ({
-        // 定义 get 方法，外部可以通过 ref.current.value 获取 <textarea> 的值
-        get getValue() {
-            return myRef.current?.value || "";
-        },
-        // 定义 set 方法，外部可以通过 ref.current.value = newValue 来设置 <textarea> 的值
-        set setValue(val: string) {
-            if (myRef.current) {
-                myRef.current.value = val;
-            }
-        },
-        //提交问题后重新设置高度
-        set setHeight(val: number) {
-            if (myRef.current) {
-                myRef.current.style.height = val + 'px';
-            }
-        }
-    }));
-
 
     function heightChange() {
         const theTextarea = myRef.current;
@@ -57,6 +24,7 @@ const Textarea = forwardRef<TextareaHandle, TextareaProps>((props, ref) => {
     return (
         <div className='bg-transparent w-full flex'>
             <textarea
+                id="theTextArea"
                 ref={myRef}
                 style={{ resize: 'none', outline: 'none', whiteSpace: 'pre-wrap' }}
                 className="bg-transparent w-full py-1 h-8 my-2.5 mx-1"
@@ -66,9 +34,4 @@ const Textarea = forwardRef<TextareaHandle, TextareaProps>((props, ref) => {
             </textarea>
         </div>
     )
-});
-
-// 设置 displayName 来避免 ESLint 错误
-Textarea.displayName = "Textarea";
-
-export default Textarea;
+}
