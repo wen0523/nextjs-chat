@@ -23,26 +23,30 @@ export default function Input() {
         return () => {
             eventSource.close()//关闭连接
         }
-    },[])//空数组挂载时执行一次
+    }, [])//空数组挂载时执行一次
 
     async function PushManager() {
-        const context = myTextArea.current.value
-        myTextArea.current.height = 32
-        myTextArea.current.value = ''
+        if (myTextArea.current) {
+            const context = myTextArea.current.value
+            myTextArea.current.height = 32
+            myTextArea.current.value = ''
 
-        //ID
-        const ID = generateRandomId()
-        addAskArea(context)
-        addAnswerArea(ID)
+            //ID
+            const ID = generateRandomId()
+            addAskArea(context)
+            addAnswerArea(ID)
 
-        let formData = new FormData()
-        formData.append('content', context)
-        getResponse(ID)
+            let formData = new FormData()
+            formData.append('content', context)
+            getResponse(ID)
 
-        const response = await axios.post('http://127.0.0.1:5000/chat', formData)
-        // console.log(response.data)输出success表示成功
-        // const theaddAnswerArea = document.getElementById(ID); //获取组件
-        // theaddAnswerArea.innerHTML = marked.parse(response.data)
+            const response = await axios.post('http://127.0.0.1:5000/chat', formData)
+            // console.log(response.data)输出success表示成功
+            // const theaddAnswerArea = document.getElementById(ID); //获取组件
+            // theaddAnswerArea.innerHTML = marked.parse(response.data)
+        }else {
+            console.log('myTextArea.current is null')
+        }
     }
 
     function getResponse(ID: string) {
