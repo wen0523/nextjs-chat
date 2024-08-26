@@ -13,7 +13,7 @@ import markdownParse from '@/functions/markdownParse.ts';
 export default function Input() {
     const myTextArea = useRef<HTMLTextAreaElement>(null)
     const marked = markdownParse()
-    const [eventSource, setEventSource] = useState(null)
+    const [eventSource, setEventSource] = useState<EventSource | null>(null)
 
     //eventSource是一个浏览器 API,保证在客户端运行
     useEffect(() => {
