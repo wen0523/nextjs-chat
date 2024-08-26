@@ -5,12 +5,16 @@ import { useRef, useImperativeHandle,forwardRef } from "react";
 // 定义 TextareaProps 接口，描述组件接受的属性
 interface TextareaProps {
     onChange?: () => void; // 可选的 onChange 回调函数
-    getValue: () => void;
+}
+
+// 定义对外暴露的 ref 类型接口
+interface TextareaHandle {
+    getValue: () => string;
     setValue: (val: string) => void;
     setHeight: (val: number) => void;
 }
 
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>((props, ref) => {
+const Textarea = forwardRef<TextareaHandle, TextareaProps>((props, ref) => {
     const myRef = useRef<HTMLTextAreaElement>(null)
 
     // useImperativeHandle 用来定义对外暴露的接口

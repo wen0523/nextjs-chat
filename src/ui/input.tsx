@@ -11,7 +11,7 @@ import Textarea from './textarea'
 import markdownParse from '@/functions/markdownParse.ts';
 
 export default function Input() {
-    const myTextArea = useRef<HTMLTextAreaElement>(null)
+    const myTextArea = useRef<TextareaHandle>(null)
     const marked = markdownParse()
     const [eventSource, setEventSource] = useState<EventSource | null>(null)
 
