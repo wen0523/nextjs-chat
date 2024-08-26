@@ -25,6 +25,12 @@ export default function Input() {
         }
     }, [])//空数组挂载时执行一次
 
+    interface TextareaHandle {//使方法合理,用于部署
+        getValue: string;
+        setValue: (val: string) => void;
+        setHeight: (val: number) => void;
+    }
+
     async function PushManager() {
         if (myTextArea.current) {//在Textarea中自定义的
             const context = myTextArea.current.getValue
