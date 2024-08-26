@@ -32,7 +32,7 @@ export default function Input() {
         if (theTextArea) {//在Textarea中自定义的
             const context = theTextArea.value
             theTextArea.style.height = '32px'
-            theTextArea.style.value = ''
+            theTextArea.value = ''
 
             //ID
             const ID = generateRandomId()
