@@ -57,7 +57,7 @@ export default function Input() {
         //流式获取结果，进行markdown解析结果（增量更新，提高性能）
         let result = ''
 
-        if (eventSource) {
+        if (eventSource&&addAnswerArea) {
             eventSource.onmessage = function (event) {
                 const data = event.data;
                 result = result + data // 更新状态以显示接收到的数据
@@ -68,7 +68,7 @@ export default function Input() {
                 console.error('Error occurred:', error);
             };
         }else {
-            console.log('eventSource is null')
+            console.log('eventSource/addAnswerArea is null')
         }
         
     }
