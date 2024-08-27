@@ -58,8 +58,8 @@ export default function Input() {
         let result = ''
 
         if (eventSource&&addAnswerArea) {
-            eventSource.onmessage = function (event) {
-                const data = event.data;
+            eventSource.onmessage = async function (event) {
+                const data = await event.data;
                 result = result + data // 更新状态以显示接收到的数据
                 addAnswerArea.innerHTML = marked.parse(result)
             };
