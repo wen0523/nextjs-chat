@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 //代码高亮的样式
-import 'highlight.js/styles/github.min.css';
+import 'highlight.js/styles/github-dark.min.css';
+//数学公式样式
+import 'katex/dist/katex.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
 

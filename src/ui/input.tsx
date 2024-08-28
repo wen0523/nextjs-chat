@@ -15,6 +15,12 @@ export default function Input() {
     const [eventSource, setEventSource] = useState<EventSource | null>(null)
     const [theTextArea, setTheTextArea] = useState<HTMLTextAreaElement | null>(null)
 
+    function copyCode(e:Event) {
+        const code = e.target.parentElement.nextElementSibling.firstElementChild.textContent;
+        navigator.clipboard.writeText(code);
+        console.log(code);
+    }
+
     //eventSource是一个浏览器 API,保证在客户端运行
     useEffect(() => {
         const eventSource = new EventSource('http://127.0.0.1:5000/stream');//建立连接（一直保持）
@@ -58,10 +64,9 @@ export default function Input() {
         let result = ''
 
         if (eventSource&&addAnswerArea) {
-            eventSource.onmessage = async function (event) {
-                const data = event.data;
-                result = result + (await data) // 更新状态以显示接收到的数据,确保result是一个字符串，而不是一个Promise
-                addAnswerArea.innerHTML = marked.parse(result)
+            eventSource.onmessage = function (event) {
+                const data = event.data
+                addAnswerArea.innerHTML = marked.parse(data)
             };
     
             eventSource.onerror = function (error) {
