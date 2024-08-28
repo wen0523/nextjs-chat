@@ -25,7 +25,7 @@ export default function markdownParse() {
                 `<code class='${langClass}'>${hljs.highlight(code.text, { language: code.lang || 'plaintext' }).value}</code>` +
                 `</div></div></pre>`
         },
-        codespan(code: string) {//自定义行内代码样式
+        codespan(code: any) {//自定义行内代码样式
             return `<code class='bg-blue-200'>${code}</code>`
         },
         //....其他渲染器

@@ -8,14 +8,14 @@ import EditIcon from '@/icon/edit';
 
 //store
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleVisibility, toggleVisibility_minMenu } from '../redux-store/store'; // 导入 toggleVisibility action
+import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-store/store'; // 导入 toggleVisibility action
 
 //handleResize
 import handleResize from '../functions/handleresize'
 
 export default function MainComponent() {
-    const isVisible = useSelector(state => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
-    const isVisible_minMenu = useSelector(state => state.isVisible_minMenu);
+    const isVisible = useSelector((state: RootState) => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
+    const isVisible_minMenu = useSelector((state: RootState)=> state.isVisible_minMenu);
     const dispatch = useDispatch(); // 获取 dispatch 函数，用于派发 action
 
     // 切换 isVisible 状态的函数

@@ -8,6 +8,9 @@ const initialState = {
   isVisible_minMenu: false,//初始为false，屏幕小于750px显示的菜单。
 };
 
+//state的类型
+export type RootState = typeof initialState;
+
 // Action Types
 const TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
 const TOGGLE_VISIBILITY_MINMENU = 'TOGGLE_VISIBILITY_MINMENU';

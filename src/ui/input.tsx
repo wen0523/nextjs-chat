@@ -15,10 +15,20 @@ export default function Input() {
     const [eventSource, setEventSource] = useState<EventSource | null>(null)
     const [theTextArea, setTheTextArea] = useState<HTMLTextAreaElement | null>(null)
 
-    function copyCode(e:Event) {
-        const code = e.target.parentElement.nextElementSibling.firstElementChild.textContent;
-        navigator.clipboard.writeText(code);
-        console.log(code);
+    function copyCode(e: Event) {
+        if (e.target) {
+            const eTarget = e.target as HTMLElement
+            const code = eTarget?.parentElement?.nextElementSibling?.firstElementChild?.textContent;
+            if (code) {
+                navigator.clipboard.writeText(code);
+                console.log(code);
+            } else {
+                console.log('Error:复制代码失败')
+            }
+
+        } else {
+            console.log('Error:复制代码失败')
+        }
     }
 
     //eventSource是一个浏览器 API,保证在客户端运行
@@ -53,7 +63,7 @@ export default function Input() {
             // console.log(response.data)输出success表示成功
             // const theaddAnswerArea = document.getElementById(ID); //获取组件
             // theaddAnswerArea.innerHTML = marked.parse(response.data)
-        }else {
+        } else {
             console.log('myTextArea.current is null')
         }
     }
@@ -63,19 +73,19 @@ export default function Input() {
         //流式获取结果，进行markdown解析结果（增量更新，提高性能）
         let result = ''
 
-        if (eventSource&&addAnswerArea) {
-            eventSource.onmessage = function (event) {
+        if (eventSource && addAnswerArea) {
+            eventSource.onmessage = async function (event) {
                 const data = event.data
-                addAnswerArea.innerHTML = marked.parse(data)
+                addAnswerArea.innerHTML = await marked.parse(data)//等待解析完再赋值
             };
-    
+
             eventSource.onerror = function (error) {
                 console.error('Error occurred:', error);
             };
-        }else {
+        } else {
             console.log('eventSource/addAnswerArea is null')
         }
-        
+
     }
 
     //随机ID
@@ -100,7 +110,7 @@ export default function Input() {
         askAreaContainer.appendChild(askArea)
         //添加到communicationArea
         const communicationArea = document.getElementById('communicationArea')
-        communicationArea.appendChild(askAreaContainer)
+        communicationArea?.appendChild(askAreaContainer)
     }
 
     //答案区域（添加框架）
@@ -120,7 +130,7 @@ export default function Input() {
         answerAreaContainer.appendChild(avatar)
         //添加到communicationArea
         const communicationArea = document.getElementById('communicationArea')
-        communicationArea.appendChild(answerAreaContainer)
+        communicationArea?.appendChild(answerAreaContainer)
     }
 
     return (
