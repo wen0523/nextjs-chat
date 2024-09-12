@@ -35,9 +35,9 @@ export default function SideBlock() {
         <>
             <div
                 id={isVisible ? 'side-block' : 'normalSide-block'}
-                className="bg-yellow-500 h-screen py-1.5 flex flex-col"
+                className="bg-base-200 h-screen py-1.5 flex flex-col"
             >
-                <div className='bg-blue-900 flex justify-between mx-4'>
+                <div id='SideIcon' className='flex justify-between mx-4'>
                     <button className="bg-transparent m-2"
                         onClick={hideSideBlock}>
                         <CloseLargeLine />
@@ -46,24 +46,24 @@ export default function SideBlock() {
                         <EditIcon />
                     </button>
                 </div>
-                <div className='bg-blue-200 flex flex-col my-3 mx-4'>
-                    <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
-                    <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
+                <div className='flex flex-col my-3 mx-4'>
+                    <label className='py-2 px-3 rounded-lg hover:bg-base-300'>New Chat</label>
+                    <label className='py-2 px-3 rounded-lg hover:bg-base-300'>Hello</label>
                 </div>
-                <div className='bg-blue-900 flex-auto flex flex-col my-5 mx-4'>
-                    <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
-                    <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
+                <div className='flex-auto flex flex-col my-5 mx-4'>
+                    <label className='py-2 px-3 rounded-lg'>Hello</label>
+                    <label className='py-2 px-3 rounded-lg'>Hello</label>
                 </div>
             </div>
             {/* 屏幕宽度小于750px时显示的菜单栏 */}
             <div
                 id={isVisible_minMenu ? 'yes' : 'no'}
-                className='absolute h-screen w-screen flex'
+                className='bg-base-200 absolute h-screen w-screen flex'
             >
                 <div
-                    className="bg-yellow-500 w-[300px] flex-none h-screen py-1.5 flex flex-col"
+                    className="w-[300px] flex-none h-screen py-1.5 flex flex-col"
                 >
-                    <div className='bg-blue-900 flex justify-between mx-4'>
+                    <div className='flex justify-between mx-4'>
                         <button className="bg-transparent m-2"
                             onClick={hideSideBlock_minMenu}>
                             <CloseLargeLine />
@@ -72,13 +72,13 @@ export default function SideBlock() {
                             <EditIcon />
                         </button>
                     </div>
-                    <div className='bg-blue-200 flex flex-col my-3 mx-4'>
-                        <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
-                        <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
+                    <div className='flex flex-col my-3 mx-4'>
+                        <label className='py-2 px-3 rounded-lg'>Hello</label>
+                        <label className='py-2 px-3 rounded-lg'>Hello</label>
                     </div>
-                    <div className='bg-blue-900 flex-auto flex flex-col my-5 mx-4'>
-                        <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
-                        <label className='bg-blue-500 py-2 px-3 rounded-lg'>Hello</label>
+                    <div id='answerList' className='flex-auto flex flex-col my-5 mx-4'>
+                        <label className='py-2 px-3 rounded-lg'>Hello</label>
+                        <label className='py-2 px-3 rounded-lg'>Hello</label>
                     </div>
                 </div>
                 <div className='h-full flex-auto bg-gray-800 opacity-90'>

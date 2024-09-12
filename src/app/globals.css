@@ -2,45 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/*恢复一些tailwindCSS样式覆盖的一些原生标签的样式*/
-h1 {
-    font-size: 2em;     /* 通常是默认的文本大小的2倍 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 0.67em 0;   /* 上下外边距 */
-}
+/*恢复一些tailwindCSS样式覆盖的一些原生标签的样式(在问答区域的元素)*/
+#communicationArea {
 
-h2 {
-    font-size: 1.5em;   /* 通常是默认的文本大小的1.5倍 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 0.83em 0;   /* 上下外边距 */
-}
+    ol,
+    ul {
+        padding-left: 20px;
+        /* 缩进 */
+        margin-top: 0;
+        margin-bottom: 1em;
+    }
 
-h3 {
-    font-size: 1.17em;  /* 通常是默认的文本大小的1.17倍 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 1em 0;      /* 上下外边距 */
-}
+    ol {
+        list-style-type: decimal;
+        /* 使用数字 */
+    }
 
-h4 {
-    font-size: 1em;     /* 与默认的文本大小一致 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 1.33em 0;   /* 上下外边距 */
-}
+    ul {
+        list-style-type: disc;
+        /* 使用圆点 */
+    }
 
-h5 {
-    font-size: 0.83em;  /* 通常是默认的文本大小的0.83倍 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 1.67em 0;   /* 上下外边距 */
-}
+    h1 {
+        font-size: 2em;
+        /* 通常是默认的文本大小的2倍 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 0.67em 0;
+        /* 上下外边距 */
+    }
 
-h6 {
-    font-size: 0.67em;  /* 通常是默认的文本大小的0.67倍 */
-    font-weight: bold;  /* 默认粗体 */
-    margin: 2.33em 0;   /* 上下外边距 */
-}
+    h2 {
+        font-size: 1.5em;
+        /* 通常是默认的文本大小的1.5倍 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 0.83em 0;
+        /* 上下外边距 */
+    }
 
-table, th, td {
-    border: 1px solid black;
+    h3 {
+        font-size: 1.17em;
+        /* 通常是默认的文本大小的1.17倍 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 1em 0;
+        /* 上下外边距 */
+    }
+
+    h4 {
+        font-size: 1em;
+        /* 与默认的文本大小一致 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 1.33em 0;
+        /* 上下外边距 */
+    }
+
+    h5 {
+        font-size: 0.83em;
+        /* 通常是默认的文本大小的0.83倍 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 1.67em 0;
+        /* 上下外边距 */
+    }
+
+    h6 {
+        font-size: 0.67em;
+        /* 通常是默认的文本大小的0.67倍 */
+        font-weight: bold;
+        /* 默认粗体 */
+        margin: 2.33em 0;
+        /* 上下外边距 */
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
 }
 
 /* 
@@ -51,7 +92,7 @@ table, th, td {
 #side-block,
 #normalSide-block,
 #showMenuIcon {
-    transition: width 0.5s ease;
+    transition: opacity 0.2s ease, width 0.5s ease;
 }
 
 #maincomponent,
@@ -63,10 +104,11 @@ table, th, td {
 @media (max-width:750px) {
     #side-block {
         width: 0%;
-    }
+        opacity: 0;
 
-    #secondSide-Block {
-        visibility: visible;
+        #SideIcon {
+            visibility: hidden;
+        }
     }
 
     /* 当屏幕小于750px时显示的菜单,*/
@@ -91,19 +133,21 @@ table, th, td {
 /*屏幕大于751px时*/
 @media (min-width:751px) {
     #side-block {
-        width: 300px;
+        width: 260px;
+        opacity: 1;
+
+        #SideIcon {
+            visibility: visible;
+        }
     }
 
-    #secondSide-Block {
-        visibility: hidden;
-    }
-
-    #yes,#no {
+    #yes,
+    #no {
         visibility: hidden;
     }
 
     #maincomponent {
-        width: calc(100% - 300px);
+        width: calc(100% - 260px);
     }
 
     #showMenuIcon {
@@ -117,6 +161,11 @@ table, th, td {
 
 #normalSide-block {
     width: 0%;
+    opacity: 0;
+
+    #SideIcon {
+        visibility: hidden;
+    }
 }
 
 #normalMaincomponent {

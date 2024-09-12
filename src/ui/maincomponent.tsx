@@ -5,6 +5,7 @@ import Input from "./input"
 import ArrowDownSLine from "@/icon/arrow-down-s-line"
 import MenuIcon from "@/icon/menuicon"
 import EditIcon from '@/icon/edit';
+import ChangeTheme from "./changeTheme"
 
 //store
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,9 +14,12 @@ import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-
 //handleResize
 import handleResize from '../functions/handleresize'
 
+//display
+import Display from "./display"
+
 export default function MainComponent() {
     const isVisible = useSelector((state: RootState) => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
-    const isVisible_minMenu = useSelector((state: RootState)=> state.isVisible_minMenu);
+    const isVisible_minMenu = useSelector((state: RootState) => state.isVisible_minMenu);
     const dispatch = useDispatch(); // 获取 dispatch 函数，用于派发 action
 
     // 切换 isVisible 状态的函数
@@ -30,11 +34,11 @@ export default function MainComponent() {
     function showAllSideBlock() {
         const clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
         //显示屏幕大于750px的菜单栏
-        if (clientWidth>750) {
+        if (clientWidth > 750) {
             showSideBlock()
-        }else {//显示屏幕小于750px的菜单栏
+        } else {//显示屏幕小于750px的菜单栏
             showSideBlock_minMenu()
-            window.addEventListener('resize',(event)=> {
+            window.addEventListener('resize', (event) => {
                 handleResize(dispatch)
             })
         }
@@ -48,7 +52,7 @@ export default function MainComponent() {
         >
 
             {/* top*/}
-            <div className="bg-blue-500 w-full h-14 flex flex-row justify-between">
+            <div className="bg-base-200 w-full h-14 flex flex-row justify-between">
                 <div className="bg-transparent h-full flex items-center">
                     <div className="h-full flex items-center"
                         id={isVisible ? 'showMenuIcon' : 'normalMenuIcon'}
@@ -65,7 +69,14 @@ export default function MainComponent() {
                     <span className="text-2xl ml-5"> My Chat</span>
                     <ArrowDownSLine />
                 </div>
-                <div className="bg-blue-400 h-full w-10"></div>
+                <div className="h-full w-44 flex justify-center items-center">
+                    <ChangeTheme />
+                    <div className="avatar">
+                        <div className="overflow-hidden ring-primary ring-offset-base-100 w-7 rounded-full ring ring-offset-2">
+                            {/* <img src="../../../public/images.jpg" className="w-full h-full"/> */}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* middle */}
@@ -73,13 +84,15 @@ export default function MainComponent() {
             {/* flex-auto的作用是可以填满剩余的部分（在y轴方向上），
             正常情况下是填充x轴剩余部分，由于父组件设置为flex-col，所以改变收缩方向 */}
             <div
-                style={{height: 'calc(100vh - 136px)'}} 
-                className="bg-yellow-300 w-full overflow-y-auto flex-auto flex justify-center"
+                style={{ height: 'calc(100vh - 136px)' }}
+                className="w-full overflow-y-auto flex-auto flex justify-center"
             >
                 <div
                     id="communicationArea"
-                    className="bg-blue-800 mx-5 w-[750px]"
+                    style={{ display:"none"}}
+                    className="mx-5 w-[750px]"
                 ></div>
+                <Display />
             </div>
 
             {/* bottom */}
