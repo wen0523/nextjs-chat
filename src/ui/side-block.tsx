@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 //import { useState } from 'react';
@@ -13,6 +12,8 @@ import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-
 
 //handleSize
 import handleResize from '@/functions/handleresize';
+
+import Link from 'next/link';
 
 export default function SideBlock() {
     const isVisible = useSelector((state: RootState) => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
@@ -51,7 +52,7 @@ export default function SideBlock() {
                     <label className='py-2 px-3 rounded-lg hover:bg-base-300'>Hello</label>
                 </div>
                 <div className='flex-auto flex flex-col my-5 mx-4'>
-                    <label className='py-2 px-3 rounded-lg'>Hello</label>
+                    <Link className='bg-blue-200 py-2 px-3 rounded-lg' href='/chat/one'>Hello</Link>
                     <label className='py-2 px-3 rounded-lg'>Hello</label>
                 </div>
             </div>
@@ -77,12 +78,14 @@ export default function SideBlock() {
                         <label className='py-2 px-3 rounded-lg'>Hello</label>
                     </div>
                     <div id='answerList' className='flex-auto flex flex-col my-5 mx-4'>
-                        <label className='py-2 px-3 rounded-lg'>Hello</label>
+
+                        <Link className='bg-blue-200 w-full h-full' href='/chat/one'>Hllo</Link>
+
                         <label className='py-2 px-3 rounded-lg'>Hello</label>
                     </div>
                 </div>
                 <div className='h-full flex-auto bg-gray-800 opacity-90'>
-                    
+
                 </div>
             </div>
         </>
