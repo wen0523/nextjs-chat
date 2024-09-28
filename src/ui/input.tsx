@@ -13,24 +13,24 @@ import PushManager from '@/functions/chat.ts';
 import { useDispatch } from 'react-redux';
 import { setEventSource } from '@/redux-store/store.ts';
 
+//router
+import { useRouter } from 'next/navigation';
+
 export default function Input() {
     //const [eventSource, setEventSource] = useState<EventSource | null>(null)
     const [theTextArea, setTheTextArea] = useState<HTMLTextAreaElement | null>(null)
-    const [communicationArea, setCommunicationArea] = useState<HTMLDivElement | null>(null)
-    const [Display, setDisplay] = useState<HTMLDivElement | null>(null)
 
     //store
     const dispatch = useDispatch()
+
+    //router
+    const router = useRouter()
 
     //eventSource是一个浏览器 API,保证在客户端运行
     useEffect(() => {
         const eventSource = new EventSource('http://127.0.0.1:5000/stream');//建立连接（一直保持）
 
         dispatch(setEventSource(eventSource))//将eventSource存入store
-
-        //maincomponent中的两个对象
-        setCommunicationArea(document.getElementById('communicationArea') as HTMLDivElement)
-        setDisplay(document.getElementById('display') as HTMLDivElement)
 
         //获取文本区域对象
         setTheTextArea(document.getElementById('theTextArea') as HTMLTextAreaElement)
@@ -41,13 +41,18 @@ export default function Input() {
     }, [dispatch])//空数组挂载时执行一次,加dispatch防止ESLint 警告
 
     function Chat() {
-        if (communicationArea && Display && Display.style.display != 'none') {
-            communicationArea.style.display = ''
-            Display.style.display = 'none'
-        }
-        if(theTextArea){
-            PushManager(theTextArea)
-        }else {
+        if (theTextArea) {
+            if (sessionStorage.getItem('now') === '/') {//直接提问的方式创建对话框
+                const text = theTextArea.value
+                theTextArea.style.height = '32px'
+                theTextArea.value = ''
+                sessionStorage.setItem('text', text)
+                const routerID = Date.now().toString()
+                router.push(`${routerID}`)
+            } else {
+                PushManager(theTextArea)
+            }
+        } else {
             alert('theTextArea is null')
         }
     }

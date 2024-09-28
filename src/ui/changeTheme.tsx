@@ -1,4 +1,20 @@
+import axios from "axios";
+
 export default function ChangeTheme() {
+    function changeTheme(e: React.MouseEvent<HTMLInputElement>) {
+        const theme = (e.target as HTMLInputElement).value
+        sessionStorage.setItem("theme", theme);
+        const username = sessionStorage.getItem('username') 
+        if (username) {
+            const formData = new FormData();
+            formData.append('username', username);
+            formData.append('theme', theme);
+            axios.post('http://127.0.0.1:5000/setBaInfor',formData)
+        }else{
+            console.log("username is null")
+        }
+    }
+
     return (
         <>
             <div className="dropdown dropdown-end">
@@ -16,6 +32,7 @@ export default function ChangeTheme() {
                 <ul tabIndex={0} className="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 mt-2 shadow-2xl">
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -24,6 +41,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -32,6 +50,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -40,6 +59,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -48,6 +68,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -56,6 +77,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -64,6 +86,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -72,6 +95,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -80,6 +104,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
@@ -88,6 +113,7 @@ export default function ChangeTheme() {
                     </li>
                     <li>
                         <input
+                            onClick={changeTheme}
                             type="radio"
                             name="theme-dropdown"
                             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"

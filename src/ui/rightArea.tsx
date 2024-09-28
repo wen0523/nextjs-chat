@@ -29,6 +29,7 @@ export default function RightArea({
             {/* flex-auto的作用是可以填满剩余的部分（在y轴方向上），
                             正常情况下是填充x轴剩余部分，由于父组件设置为flex-col，所以改变收缩方向 */}
             <div
+                id="communicationArea"
                 style={{ height: 'calc(100vh - 136px)' }}
                 className="w-full overflow-y-auto flex-auto flex justify-center"
             >

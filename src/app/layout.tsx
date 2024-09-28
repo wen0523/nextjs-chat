@@ -3,6 +3,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { useEffect, useState,Suspense } from "react";
+import axios from "axios";
+
 //代码高亮的样式
 import 'highlight.js/styles/github-dark.min.css';
 //数学公式样式
@@ -18,6 +21,11 @@ import SideBlock from "@/ui/side-block";
 import { Provider } from "react-redux";
 import store from "@/redux-store/store";
 
+//monitor
+import RouterMonitor from "@/ui/routerMonitor";
+import { useRouter } from "next/navigation";
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -30,11 +38,79 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const router = useRouter()
+  const [theTheme,settheTheme] = useState('light')
+
+  //用于初次加载页面时获取数据
+  useEffect(() => {
+    if(sessionStorage.getItem('now')===null){//初次加载（不包含页面刷新）
+      axios.post('http://127.0.0.1:5000/getBaInfor').then((res) => {
+        const theme = res.data[0].theme
+        const username = res.data[0].username
+        settheTheme(theme)
+        sessionStorage.setItem('username',username)
+        sessionStorage.setItem('theme',theme)
+      }).catch((err) => {
+        console.log(err)
+      })
+      ////从数据库获取answerlist,并缓存
+      axios.post('http://127.0.0.1:5000/getallList').then((res) => {
+        const allList = []
+        const allListText = []
+        const result = res.data
+        const answerList = document.getElementById('answerList')
+        if(answerList){
+          for(let i=0;i<result.length;i++){
+            const ID = result[i].routerID
+            const text = result[i].text
+            answerList.appendChild(getLabel(text,ID))
+            allList.push(ID)
+            allListText.push(text)
+          }
+        }else{
+          console.log('answerList/allList不存在')
+        }
+        sessionStorage.setItem('now', '/')
+        sessionStorage.setItem('allList',JSON.stringify(allList))//储存ID
+        sessionStorage.setItem('allListText',JSON.stringify(allListText))//储存HTML
+      })
+    }else{
+      settheTheme(sessionStorage.getItem('theme') || 'light')
+      const answerList = document.getElementById('answerList')
+      const allListJson = sessionStorage.getItem('allList')
+      const allListTextJson = sessionStorage.getItem('allListText')
+      if(answerList && allListTextJson && allListJson){
+        const allList = JSON.parse(allListJson)
+        const allListText = JSON.parse(allListTextJson)
+        for(let i=0;i<allListText.length;i++){
+          answerList.appendChild(getLabel(allListText[i],allList[i]))
+        }
+      }else{
+        console.log('answerList/allList不存在')
+      }
+    }
+  // your logic using getLabel
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  function getLabel(text:string,ID:string) {
+    const label = document.createElement('label')
+    label.className = 'py-2 px-3 text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
+    label.innerText = text
+    label.onclick = () => {
+      router.push('/'+ID)
+    }
+
+    return label
+  }
+
   return (
     <Provider store={store}>
-      <html lang="en" className="w-screen h-screen">
+      <html data-theme={theTheme} lang="en" className="w-screen h-screen">
         <head><meta name="viewport" content="width=device-width, initial-scale=1.0" /></head>
         <body className={`${inter.className} flex`}>{/*设置为flex使子元素可以收缩*/}
+          <RouterMonitor />
           <SideBlock />
           <RightArea>{children}</RightArea>
         </body>

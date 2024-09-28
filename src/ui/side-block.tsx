@@ -1,8 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react';
-
-//import { useState } from 'react';
 import CloseLargeLine from "@/icon/close-large-line"
 import EditIcon from '@/icon/edit';
 
@@ -13,12 +10,17 @@ import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-
 //handleSize
 import handleResize from '@/functions/handleresize';
 
+//link
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function SideBlock() {
+    const dispatch = useDispatch(); // 获取 dispatch 函数，用于派发 action
+
+    const router = useRouter();
+
     const isVisible = useSelector((state: RootState) => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态
     const isVisible_minMenu = useSelector((state: RootState) => state.isVisible_minMenu);
-    const dispatch = useDispatch(); // 获取 dispatch 函数，用于派发 action
 
     // 切换 isVisible 状态的函数
     function hideSideBlock() {
@@ -31,6 +33,10 @@ export default function SideBlock() {
             handleResize(dispatch)
         })
     };
+
+    function Home() {
+        router.push('/')
+    }
 
     return (
         <>
@@ -48,12 +54,10 @@ export default function SideBlock() {
                     </button>
                 </div>
                 <div className='flex flex-col my-3 mx-4'>
-                    <label className='py-2 px-3 rounded-lg hover:bg-base-300'>New Chat</label>
+                    <label className='py-2 px-3 rounded-lg hover:bg-base-300' onClick={Home}>New Chat</label>
                     <label className='py-2 px-3 rounded-lg hover:bg-base-300'>Hello</label>
                 </div>
-                <div className='flex-auto flex flex-col my-5 mx-4'>
-                    <Link className='bg-blue-200 py-2 px-3 rounded-lg' href='/chat/one'>Hello</Link>
-                    <label className='py-2 px-3 rounded-lg'>Hello</label>
+                <div id='answerList' className='flex-auto flex flex-col-reverse justify-end my-5 mx-4'>
                 </div>
             </div>
             {/* 屏幕宽度小于750px时显示的菜单栏 */}
