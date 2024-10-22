@@ -5,9 +5,9 @@ module.exports = {
   content: [
     "./src/app/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/icon/*.{js,ts,jsx,tsx,mdx}",
-    "./src/ui/*.{js,ts,jsx,tsx,mdx}",
-    "./src/functions/*.{js,ts,jsx,tsx,mdx}"
+    "./src/components/icon/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/ui/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/*.{js,ts,jsx,tsx,mdx}"
   ],
   theme: {
     extend: {},

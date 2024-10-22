@@ -1,12 +1,12 @@
 'use client';
 
 //ui
-import Top from "@/ui/top";
-import Bottom from "@/ui/bottom";
+import Top from "@/components/ui/top";
+import Bottom from "@/components/ui/bottom";
 
 //store
 import { useSelector } from 'react-redux';
-import { RootState } from "@/redux-store/store";
+import { RootState } from "@/lib/store";
 
 //左侧区域
 export default function RightArea({
@@ -31,7 +31,7 @@ export default function RightArea({
             <div
                 id="communicationArea"
                 style={{ height: 'calc(100vh - 136px)' }}
-                className="w-full overflow-y-auto flex-auto flex justify-center"
+                className="w-full overflow-auto flex justify-center"
             >
                 {children}
             </div>

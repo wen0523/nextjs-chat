@@ -1,16 +1,16 @@
 'use client'
 
-import ArrowDownSLine from "@/icon/arrow-down-s-line"
-import MenuIcon from "@/icon/menuicon"
-import EditIcon from '@/icon/edit';
+import ArrowDownSLine from "@/components/icon/arrow-down-s-line"
+import MenuIcon from "@/components/icon/menuicon"
+import EditIcon from '@/components/icon/edit';
 import ChangeTheme from "./changeTheme"
 
 //store
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-store/store'; // 导入 toggleVisibility action
+import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../../lib/store'; // 导入 toggleVisibility action
 
 //handleResize
-import handleResize from '../functions/handleresize'
+import handleResize from '@/lib/handleresize'
 
 export default function Top() {
     const isVisible = useSelector((state: RootState) => state.isVisible); // 从 Redux store 中选择和获取 isVisible 状态

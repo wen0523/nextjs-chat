@@ -3,15 +3,15 @@
 import { useRef, useEffect, useState } from 'react'
 //组件
 import ArrowUpLineIcon from '../icon/arrow-up-lineIcon.tsx'
-import AttachmentIcon from '../icon/attachmenticon';
-import Textarea from './textarea'
+import AttachmentIcon from '../icon/attachmenticon.tsx';
+import Textarea from './textarea.tsx'
 
 //chat
-import PushManager from '@/functions/chat.ts';
+import PushManager from '@/lib/chat.ts';
 
 //store
 import { useDispatch } from 'react-redux';
-import { setEventSource } from '@/redux-store/store.ts';
+import { setEventSource } from '@/lib/store.ts';
 
 //router
 import { useRouter } from 'next/navigation';

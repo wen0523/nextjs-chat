@@ -12,19 +12,20 @@ import 'highlight.js/styles/github-dark.min.css';
 import 'katex/dist/katex.min.css'
 
 //rightarea
-import RightArea from "@/ui/rightArea";
+import RightArea from "@/components/ui/rightArea";
 
 //侧边栏
-import SideBlock from "@/ui/side-block";
+import SideBlock from "@/components/ui/side-block";
 
 //store
 import { Provider } from "react-redux";
-import store from "@/redux-store/store";
+import store from "@/lib/store";
 
 //monitor
-import RouterMonitor from "@/ui/routerMonitor";
+import RouterMonitor from "@/components/ui/routerMonitor";
 import { useRouter } from "next/navigation";
 
+import InsertBefore from "@/lib/insertbefore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,7 +65,7 @@ export default function RootLayout({
           for(let i=0;i<result.length;i++){
             const ID = result[i].routerID
             const text = result[i].text
-            answerList.appendChild(getLabel(text,ID))
+            InsertBefore(answerList,getLabel(text,ID))
             allList.push(ID)
             allListText.push(text)
           }
@@ -84,7 +85,7 @@ export default function RootLayout({
         const allList = JSON.parse(allListJson)
         const allListText = JSON.parse(allListTextJson)
         for(let i=0;i<allListText.length;i++){
-          answerList.appendChild(getLabel(allListText[i],allList[i]))
+          InsertBefore(answerList,getLabel(allListText[i],allList[i]))
         }
       }else{
         console.log('answerList/allList不存在')
@@ -96,7 +97,7 @@ export default function RootLayout({
 
   function getLabel(text:string,ID:string) {
     const label = document.createElement('label')
-    label.className = 'py-2 px-3 text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
+    label.className = 'py-2 px-3 h-[40px] flex-none text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
     label.innerText = text
     label.onclick = () => {
       router.push('/'+ID)

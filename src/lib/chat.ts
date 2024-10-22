@@ -3,10 +3,10 @@
 import axios from 'axios'//请求
 
 //markdownParse
-import markdownParse from '@/functions/markdownParse.ts';
+import markdownParse from '@/lib/markdownParse.ts';
 
 //store
-import store from '@/redux-store/store'
+import store from '@/lib/store'
 import { Children } from 'react';
 
 export default async function PushManager(theTextArea: HTMLTextAreaElement | string) {
@@ -80,8 +80,10 @@ function getResponse(answerArea: HTMLDivElement) {
         // 使用类型断言，确保 eventSource 是 EventSource 类型
         const eventSourceInstance = eventSource as EventSource;
         eventSourceInstance.onmessage = async function (event) {
-            const data = event.data
-            answerArea.innerHTML = await marked.parse(data)//等待解析完再赋值
+            const data =event.data
+            const message = JSON.parse(data).content
+            result = result + message
+            answerArea.innerHTML = await marked.parse(result)//等待解析完再赋值
         };
 
         eventSourceInstance.onerror = function (error) {
@@ -100,7 +102,7 @@ function addAskArea(context: string) {
     askAreaContainer.className = 'w-full py-5 flex flex-row justify-end'
     //头像
     const avatar = document.createElement('div')
-    avatar.className = 'order-2 size-10 ml-5 rounded-full bg-blue-500 flex-none'
+    avatar.className = 'order-2 size-10 mr-3 ml-5 rounded-full bg-blue-500 flex-none'
     //askArea
     const askArea = document.createElement('div')
     askArea.className = 'order-1 px-3 py-2 break-all max-w-96 h-fit rounded-[16px] bg-base-200'
@@ -125,10 +127,11 @@ function addAnswerArea() {
     answerAreaContainer.className = 'w-full py-5 flex flex-row justify-start'
     //头像
     const avatar = document.createElement('div')
-    avatar.className = 'order-1 size-10 mr-5 rounded-full bg-blue-500 flex-none'
+    avatar.className = 'order-1 size-10 ml-3 mr-5 rounded-full bg-blue-500 flex-none'
     //answerArea
     const answerArea = document.createElement('div')
-    answerArea.className = 'order-2 px-3 py-2 h-fit w-5/6 rounded-[16px] bg-base-200'
+    answerArea.style.width = 'calc(100% - 143px)'
+    answerArea.className = 'order-2 px-3 py-2 h-fit rounded-[16px] bg-base-200'
     //loading
     const loading = document.createElement('span')
     loading.className = 'loading loading-spinner loading-xs'

@@ -1,14 +1,14 @@
 'use client'
 
-import CloseLargeLine from "@/icon/close-large-line"
-import EditIcon from '@/icon/edit';
+import CloseLargeLine from "@/components/icon/close-large-line"
+import EditIcon from '@/components/icon/edit';
 
 //store
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../redux-store/store'; // 导入 toggleVisibility action
+import { toggleVisibility, toggleVisibility_minMenu, RootState } from '../../lib/store'; // 导入 toggleVisibility action
 
 //handleSize
-import handleResize from '@/functions/handleresize';
+import handleResize from '@/lib/handleresize';
 
 //link
 import Link from 'next/link';
@@ -42,7 +42,7 @@ export default function SideBlock() {
         <>
             <div
                 id={isVisible ? 'side-block' : 'normalSide-block'}
-                className="bg-base-200 h-screen py-1.5 flex flex-col"
+                className="bg-base-200 h-screen py-1.5"
             >
                 <div id='SideIcon' className='flex justify-between mx-4'>
                     <button className="bg-transparent m-2"
@@ -57,7 +57,7 @@ export default function SideBlock() {
                     <label className='py-2 px-3 rounded-lg hover:bg-base-300' onClick={Home}>New Chat</label>
                     <label className='py-2 px-3 rounded-lg hover:bg-base-300'>Hello</label>
                 </div>
-                <div id='answerList' className='flex-auto flex flex-col-reverse justify-end my-5 mx-4'>
+                <div id='answerList' style={{ height: 'calc(100vh - 250px)' }} className='overflow-auto flex flex-col my-5 mx-4'>
                 </div>
             </div>
             {/* 屏幕宽度小于750px时显示的菜单栏 */}
@@ -78,14 +78,10 @@ export default function SideBlock() {
                         </button>
                     </div>
                     <div className='flex flex-col my-3 mx-4'>
-                        <label className='py-2 px-3 rounded-lg'>Hello</label>
-                        <label className='py-2 px-3 rounded-lg'>Hello</label>
+                        <label className='py-2 px-3 rounded-lg hover:bg-base-300' onClick={Home}>New Chat</label>
+                        <label className='py-2 px-3 rounded-lg hover:bg-base-300'>Hello</label>
                     </div>
-                    <div id='answerList' className='flex-auto flex flex-col my-5 mx-4'>
-
-                        <Link className='bg-blue-200 w-full h-full' href='/chat/one'>Hllo</Link>
-
-                        <label className='py-2 px-3 rounded-lg'>Hello</label>
+                    <div id='answerList' style={{ height: 'calc(100vh - 250px)' }} className='overflow-auto flex flex-col my-5 mx-4'>
                     </div>
                 </div>
                 <div className='h-full flex-auto bg-gray-800 opacity-90'>

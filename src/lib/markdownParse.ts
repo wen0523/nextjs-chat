@@ -25,13 +25,16 @@ export default function markdownParse() {
                 `<label class='pl-1'>复制文本</label>` +
                 `</button>` +
                 `</div>` +
-                `<div class='p-3 rounded-b-[8px] bg-black text-white' >` +
+                `<div class='overflow-auto p-3 rounded-b-[8px] bg-black text-white' >` +
                 `<code class='${langClass}'>${hljs.highlight(code.text, { language: code.lang || 'plaintext' }).value}</code>` +
                 `</div></div></pre>`
         },
         // codespan(codespan: any) {//自定义行内代码样式
         //     return `<code class='text-base-300'>${codespan.text}</code>`
         // },
+        image(image: any) {//自定义图片样式
+            return `<img src="${image.href}" alt="${image.text}" >`
+        }
         //....其他渲染器
     }
 

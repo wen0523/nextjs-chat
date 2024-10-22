@@ -3,7 +3,9 @@ import { usePathname, useRouter } from "next/navigation";
 import axios from 'axios';
 
 //chat
-import PushManager from "@/functions/chat";
+import PushManager from "@/lib/chat";
+
+import InsertBefore from '@/lib/insertbefore';
 
 export default function RouterMonitor() {
     const pathName = usePathname();
@@ -67,7 +69,7 @@ export default function RouterMonitor() {
                 if (text) {
                     //new list
                     const newList = document.createElement('label')
-                    newList.className = 'py-2 px-3 text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
+                    newList.className = 'py-2 px-3 h-[40px] flex-none text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
                     newList.innerText = text
                     newList.onclick = () => {
                         router.push('/' + routerID)
@@ -75,7 +77,11 @@ export default function RouterMonitor() {
 
                     //在side添加一个列表
                     const answerList = document.getElementById('answerList')
-                    answerList?.appendChild(newList)
+                    if(answerList){
+                        InsertBefore(answerList, newList)
+                    }else{
+                        console.log('answerList not found')
+                    }
 
                     //储存到sessionStorage
                     allList.push(routerID)
