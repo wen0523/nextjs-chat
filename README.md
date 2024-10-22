@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ChatGPT-like Frontend Project
 
-## Getting Started
+这是一个基于 Next.js 框架的前端项目，旨在模拟 ChatGPT 的用户界面和交互功能。
 
-First, run the development server:
+## 特性
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 用户可以输入问题并接收来自后端的实时回复
+- 历史会话存储与管理
+- 响应式设计，适应各种屏幕尺寸
+- 使用 Redux 管理全局状态
+- 与后端 API 的流畅集成
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技术栈
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **前端**: 
+  - [Next.js](https://nextjs.org/)
+  - [React](https://reactjs.org/)
+  - [Tailwind CSS](https://tailwindcss.com/)
+  - [Redux](https://redux.js.org/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **后端**: 
+  - Flask
+  - Redis
+  - Server-Sent Events (SSE)
 
-## Learn More
+## 安装与使用
 
-To learn more about Next.js, take a look at the following resources:
+1. 克隆仓库：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/your-username/chatgpt-like-frontend.git
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. 进入项目目录：
 
-## Deploy on Vercel
+    ```bash
+    cd chatgpt-like-frontend
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. 安装依赖：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```bash
+    npm install
+    ```
+4. 运行开发服务器：
+
+    ```bash
+    npm run dev
+    ```
+
+5. 打开浏览器访问 http://localhost:3000
