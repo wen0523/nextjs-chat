@@ -23,9 +23,11 @@ export default async function PushManager(theTextArea: HTMLTextAreaElement | str
         //添加区域（问题和回答区域）
         addAskArea(context)
         const answerArea = addAnswerArea()
+        const routerID = sessionStorage.getItem('now') || ''
 
         let formData = new FormData()
         formData.append('content', context)
+        formData.append('id', routerID)
         getResponse(answerArea)
 
         const response = await axios.post('http://127.0.0.1:5000/chat', formData)

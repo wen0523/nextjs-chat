@@ -28,7 +28,7 @@
 1. 克隆仓库：
 
    ```bash
-   git clone https://github.com/your-username/chatgpt-like-frontend.git
+   git clone https://github.com/wen0523/nextjs-chat.git
    ```
 
 2. 进入项目目录：

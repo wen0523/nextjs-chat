@@ -7,6 +7,8 @@ import PushManager from "@/lib/chat";
 
 import InsertBefore from '@/lib/insertbefore';
 
+import createDeleteIcon from '@/lib/deleteicon';
+
 export default function RouterMonitor() {
     const pathName = usePathname();
     const router = useRouter();
@@ -68,18 +70,43 @@ export default function RouterMonitor() {
                 const text = sessionStorage.getItem('text')
                 if (text) {
                     //new list
-                    const newList = document.createElement('label')
-                    newList.className = 'py-2 px-3 h-[40px] flex-none text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
-                    newList.innerText = text
-                    newList.onclick = () => {
+                    const label = document.createElement('label')
+                    label.className = 'py-2 pl-3 pr-2 h-[40px] flex-none flex flex-row rounded-lg hover:bg-base-300'
+                    label.id = 'label' + routerID
+
+                    const span = document.createElement('span')
+                    span.className = 'h-[24px] w-[168px] flex-none text-nowrap overflow-hidden'
+                    span.innerText = text
+                    span.onclick = (event) => {
                         router.push('/' + routerID)
                     }
 
+                    const deleteIcon = createDeleteIcon()
+                    // 使用 setAttribute 来设置 class
+                    deleteIcon.setAttribute('class', 'ml-5 mr-1 my-1 h-[16px] w-[16px] flex-none');
+                    deleteIcon.onclick = (event) => {
+                        const brotherHtml = event.target.previousElementSibling
+                        const parentHtml = event.target.parentElement
+                        console.log(brotherHtml)
+                        console.log(parentHtml)
+                        // const formData = new FormData()
+                        // formData.append('routerID', routerID)
+                        // result  = confirm('确定要删除吗？')
+                        // axios.post('http://127.0.0.1:5000/getContent', formData).then((res) => {
+                            
+                        // }).catch((err) => {
+                        //     console.log(err)
+                        // })
+                    }
+
+                    label.appendChild(span)
+                    label.appendChild(deleteIcon)
+
                     //在side添加一个列表
                     const answerList = document.getElementById('answerList')
-                    if(answerList){
-                        InsertBefore(answerList, newList)
-                    }else{
+                    if (answerList) {
+                        InsertBefore(answerList, label)
+                    } else {
                         console.log('answerList not found')
                     }
 
@@ -99,7 +126,7 @@ export default function RouterMonitor() {
 
                     //调用请求函数
                     PushManager(text)
-                }else{
+                } else {
                     console.log('text not found(未获得新建会话窗口标题)')
                 }
             }

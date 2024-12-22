@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { useEffect, useState,Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 
 //代码高亮的样式
@@ -27,6 +27,8 @@ import { useRouter } from "next/navigation";
 
 import InsertBefore from "@/lib/insertbefore";
 
+import createDeleteIcon from "@/lib/deleteicon";
+
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -41,17 +43,17 @@ export default function RootLayout({
 }>) {
 
   const router = useRouter()
-  const [theTheme,settheTheme] = useState('light')
+  const [theTheme, settheTheme] = useState('light')
 
   //用于初次加载页面时获取数据
   useEffect(() => {
-    if(sessionStorage.getItem('now')===null){//初次加载（不包含页面刷新）
+    if (sessionStorage.getItem('now') === null) {//初次加载（不包含页面刷新）
       axios.post('http://127.0.0.1:5000/getBaInfor').then((res) => {
         const theme = res.data[0].theme
         const username = res.data[0].username
         settheTheme(theme)
-        sessionStorage.setItem('username',username)
-        sessionStorage.setItem('theme',theme)
+        sessionStorage.setItem('username', username)
+        sessionStorage.setItem('theme', theme)
       }).catch((err) => {
         console.log(err)
       })
@@ -61,47 +63,74 @@ export default function RootLayout({
         const allListText = []
         const result = res.data
         const answerList = document.getElementById('answerList')
-        if(answerList){
-          for(let i=0;i<result.length;i++){
+        if (answerList) {
+          for (let i = 0; i < result.length; i++) {
             const ID = result[i].routerID
             const text = result[i].text
-            InsertBefore(answerList,getLabel(text,ID))
+            InsertBefore(answerList, getLabel(text, ID))
             allList.push(ID)
             allListText.push(text)
           }
-        }else{
+        } else {
           console.log('answerList/allList不存在')
         }
         sessionStorage.setItem('now', '/')
-        sessionStorage.setItem('allList',JSON.stringify(allList))//储存ID
-        sessionStorage.setItem('allListText',JSON.stringify(allListText))//储存HTML
+        sessionStorage.setItem('allList', JSON.stringify(allList))//储存ID
+        sessionStorage.setItem('allListText', JSON.stringify(allListText))//储存HTML
       })
-    }else{
+    } else {
       settheTheme(sessionStorage.getItem('theme') || 'light')
       const answerList = document.getElementById('answerList')
       const allListJson = sessionStorage.getItem('allList')
       const allListTextJson = sessionStorage.getItem('allListText')
-      if(answerList && allListTextJson && allListJson){
+      if (answerList && allListTextJson && allListJson) {
         const allList = JSON.parse(allListJson)
         const allListText = JSON.parse(allListTextJson)
-        for(let i=0;i<allListText.length;i++){
-          InsertBefore(answerList,getLabel(allListText[i],allList[i]))
+        for (let i = 0; i < allListText.length; i++) {
+          InsertBefore(answerList, getLabel(allListText[i], allList[i]))
         }
-      }else{
+      } else {
         console.log('answerList/allList不存在')
       }
     }
-  // your logic using getLabel
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    // your logic using getLabel
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  function getLabel(text:string,ID:string) {
+  function getLabel(text: string, ID: string) {
     const label = document.createElement('label')
-    label.className = 'py-2 px-3 h-[40px] flex-none text-nowrap overflow-hidden rounded-lg hover:bg-base-300'
-    label.innerText = text
-    label.onclick = () => {
-      router.push('/'+ID)
+    label.className = 'py-2 pl-3 pr-2 h-[40px] flex-none flex flex-row rounded-lg hover:bg-base-300'
+    label.id = 'label' + ID
+
+    const span = document.createElement('span')
+    span.className = 'h-[24px] w-[168px] flex-none text-nowrap overflow-hidden'
+    span.innerText = text
+    span.onclick = (event) => {
+      router.push('/' + ID)
     }
+
+    const deleteIcon = createDeleteIcon()
+    // 使用 setAttribute 来设置 class
+    deleteIcon.setAttribute('class', 'ml-5 mr-1 my-1 h-[16px] w-[16px] flex-none');
+    deleteIcon.onclick = (event) => {
+      const brotherHtml = event.target.previousElementSibling
+      const parentHtml = event.target.parentElement
+
+      const formData = new FormData()
+      formData.append('id', parentHtml.id.slice(5))
+      const text = brotherHtml.innerText
+      const result = confirm(`确定要删除'${text}'对话吗？`)
+      if (result){
+        axios.post('http://127.0.0.1:5000/deleteContent', formData).then((res) => {
+          
+        }).catch((err) => {
+          console.log(err)
+        })
+      }
+    }
+
+    label.appendChild(span)
+    label.appendChild(deleteIcon)
 
     return label
   }
