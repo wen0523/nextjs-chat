@@ -113,19 +113,28 @@ export default function RootLayout({
     // 使用 setAttribute 来设置 class
     deleteIcon.setAttribute('class', 'ml-5 mr-1 my-1 h-[16px] w-[16px] flex-none');
     deleteIcon.onclick = (event) => {
-      const brotherHtml = event.target.previousElementSibling
-      const parentHtml = event.target.parentElement
+      if (event.target) {
 
-      const formData = new FormData()
-      formData.append('id', parentHtml.id.slice(5))
-      const text = brotherHtml.innerText
-      const result = confirm(`确定要删除'${text}'对话吗？`)
-      if (result){
-        axios.post('http://127.0.0.1:5000/deleteContent', formData).then((res) => {
-          
-        }).catch((err) => {
-          console.log(err)
-        })
+        const brotherHtml = (event.target as HTMLElement).previousElementSibling || ''
+        const parentHtml = (event.target as HTMLElement).parentElement || ''
+
+        if (brotherHtml && parentHtml) {
+          const formData = new FormData()
+          formData.append('id', parentHtml.id.slice(5))
+          const text = (brotherHtml as HTMLElement).innerText
+          const result = confirm(`确定要删除'${text}'对话吗？`)
+          if (result) {
+            axios.post('http://127.0.0.1:5000/deleteContent', formData).then((res) => {
+
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
+        }else{
+          // console.log('brotherHtml/parentHtml不存在')
+        }
+      } else {
+        // console.log('event不存在')
       }
     }
 
