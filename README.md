@@ -1,51 +1,158 @@
-# ChatGPT-like Frontend Project
+# Next.js Chat Frontend
 
-这是一个基于 Next.js 框架的前端项目，旨在模拟 ChatGPT 的用户界面和交互功能。
+一个基于 Next.js 的现代化聊天应用前端界面。
 
-## 特性
+## 功能特性
 
-- 用户可以输入问题并接收来自后端的实时回复
-- 历史会话存储与管理
-- 响应式设计，适应各种屏幕尺寸
-- 使用 Redux 管理全局状态
-- 与后端 API 的流畅集成
+- 🎨 现代化 UI 设计，使用 Tailwind CSS 和 DaisyUI
+- 💬 实时聊天功能，支持 Markdown 渲染
+- 🌓 支持明暗主题切换
+- 📱 响应式设计，适配移动端和桌面端
+- 🔄 实时消息推送，使用 Server-Sent Events (SSE)
+- 🎯 路由管理，支持多会话聊天
+- 📝 代码语法高亮显示
+- 📊 用户信息管理
 
 ## 技术栈
 
-- **前端**: 
-  - [Next.js](https://nextjs.org/)
-  - [React](https://reactjs.org/)
-  - [Tailwind CSS](https://tailwindcss.com/)
-  - [Redux](https://redux.js.org/)
+- **前端框架**: Next.js 14.2.4
+- **UI 库**: Tailwind CSS + DaisyUI
+- **状态管理**: Redux Toolkit
+- **HTTP 客户端**: Axios
+- **Markdown 渲染**: Marked + KaTeX 扩展
+- **代码高亮**: Highlight.js
+- **类型检查**: TypeScript
+- **环境配置**: dotenv
 
-- **后端**: 
-  - Flask
-  - Redis
-  - Server-Sent Events (SSE)
+## 项目结构
 
-## 安装与使用
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # 首页
+│   ├── layout.tsx         # 根布局
+│   └── [id]/              # 动态路由页面
+├── components/            # React 组件
+│   ├── icon/              # 图标组件
+│   └── ui/                # UI 组件
+└── lib/                   # 工具库
+    ├── chat.ts           # 聊天相关功能
+    ├── markdownParse.ts  # Markdown 解析
+    └── store.ts          # Redux 存储
+```
 
-1. 克隆仓库：
+## 安装和运行
 
-   ```bash
-   git clone https://github.com/wen0523/nextjs-chat.git
-   ```
+### 前置要求
 
-2. 进入项目目录：
+- Node.js 18+ 
+- npm 或 yarn
 
-    ```bash
-    cd chatgpt-like-frontend
-    ```
+### 安装依赖
 
-3. 安装依赖：
+```bash
+npm install
+```
 
-    ```bash
-    npm install
-    ```
-4. 运行开发服务器：
+### 开发环境
 
-    ```bash
-    npm run dev
-    ```
+```bash
+npm run dev
+```
 
-5. 打开浏览器访问 http://localhost:3000
+应用将在 `http://localhost:3000` 启动
+
+### 构建生产版本
+
+```bash
+npm run build
+npm start
+```
+
+### 其他命令
+
+```bash
+npm run lint          # 代码检查
+npm run start         # 启动生产服务器
+```
+
+## 环境配置
+
+在项目根目录创建 `.env` 文件：
+
+```env
+# 后端 API 地址
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# 其他环境变量
+NEXT_PUBLIC_APP_NAME=Next.js Chat
+```
+
+## API 接口
+
+前端与后端通过以下 API 接口通信：
+
+- `POST /chat` - 发送聊天消息
+- `POST /setBaInfor` - 设置用户信息
+- `POST /getBaInfor` - 获取用户信息
+- `POST /setallList` - 创建聊天列表
+- `POST /getallList` - 获取聊天列表
+- `POST /delallList` - 删除聊天列表
+- `POST /setContent` - 保存聊天内容
+- `POST /getContent` - 获取聊天内容
+
+## 主要组件
+
+### 页面组件
+- `src/app/page.tsx` - 首页，显示聊天选项卡片
+- `src/app/[id]/page.tsx` - 聊天页面
+
+### UI 组件
+- `src/components/ui/top.tsx` - 顶部导航栏
+- `src/components/ui/bottom.tsx` - 底部输入区域
+- `src/components/ui/side-block.tsx` - 侧边栏
+- `src/components/ui/rightArea.tsx` - 右侧内容区域
+
+### 工具库
+- `src/lib/chat.ts` - 聊天逻辑和 SSE 连接
+- `src/lib/markdownParse.ts` - Markdown 解析和渲染
+- `src/lib/store.ts` - Redux 状态管理
+
+## 开发说明
+
+### 添加新功能
+
+1. 在 `src/components/` 下创建新组件
+2. 在 `src/lib/` 下添加工具函数
+3. 更新 Redux store（如需要）
+4. 在页面中引入和使用
+
+### 样式定制
+
+- 修改 `tailwind.config.js` 配置 Tailwind
+- 使用 DaisyUI 组件类名
+- 在 `src/app/globals.css` 中添加自定义样式
+
+### 类型安全
+
+项目使用 TypeScript，确保类型安全：
+- 为组件 props 定义接口
+- 为 API 响应定义类型
+- 使用泛型提高代码复用性
+
+## 部署
+
+### Vercel 部署（推荐）
+
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. 配置环境变量
+4. 自动部署
+
+### 其他平台
+
+参考 Next.js 官方文档进行部署配置。
+
+## 许可证
+
+MIT License
